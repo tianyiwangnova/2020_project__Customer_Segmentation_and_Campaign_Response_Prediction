@@ -8,8 +8,8 @@ This is a Capstone project for Udacity Data Science Nanodegree parterning with [
 
 The raw data is proprietary so I won't share it in this repo. We mainly have 2 datasets which contains the demographic features for the general German population and the customers seperately. The customers data is like a subset of the general population data with 3 extra columns: CUSTOMER_GROUP, ONLINE_PURCHASE and PRODUCT_GROUP.
 
-* Genereal German population data: 891,221 rows, 366 columns
-* Customers data: 191,652 rows, 369 columns
+* **Genereal German population data:** 891,221 rows, 366 columns
+* **Customers data:** 191,652 rows, 369 columns
 
 The 366 features cover various aspects that describe a customer, including age, customers journey typology, financial typology, bank transaction activities, customer personalities, shares of different car brands in the customer's neighborhood. Interestingly, most features are built around the cars the customer owns or the cars the customer's neighbors own. 
 
@@ -27,12 +27,22 @@ Unlike other segmentation problems, in this project we will perform a `KMeans` c
 
 Since we have many features, we will perform a `PCA` transformation on the demographic data to reduce the dimensions before we do the `KMeans` clustering. The process can be found in notebook `02 PCA`. We chose to keep the first 100 components, which explain 70% of the variance. By looking at the top and bottom 3 features that make up the components, we tried to understand what each component means:
 
-* First component: Low mobility, 1-2 family houses in the PLZ8, low share of AUDI within the PLZ8.
-* Second component: High online affinity and high recent transaction activity
-* Third component: High share of BMW & Mercedes Benz, high share of upper middle class cars and upper class cars (BMW5er, BMW7er etc.), low share of small and very small cars (Ford Fiesta, Ford Ka etc.) in the PLZ8, low share of cars with max speed between 140 and 210 km/h within the PLZ8, low numbers of cars with 5 seats in the PLZ8
-* Forth component: Low "financial typology: be prepared", older age, highly likely to be money saver or investor
+* **First component:** Low mobility, 1-2 family houses in the PLZ8, low share of AUDI within the PLZ8.
+* **Second component:** High online affinity and high recent transaction activity
+* **Third component:** High share of BMW & Mercedes Benz, high share of upper middle class cars and upper class cars (BMW5er, BMW7er etc.), low share of small and very small cars (Ford Fiesta, Ford Ka etc.) in the PLZ8, low share of cars with max speed between 140 and 210 km/h within the PLZ8, low numbers of cars with 5 seats in the PLZ8
+* **Forth component:** Low "financial typology: be prepared", older age, highly likely to be money saver or investor
 
 We extracted the top 2 features (that can be found explanations) for the top 20 components. They are considered as "important features" and when we do clustering later, we will look at these features to understand the clusters.
+
+In the `KMeans` clustering, we chose to do 6 clusters. The average values of the important variables for each cluster:
+
+
+It's a very long chart I only screenshot a little bit here... For more details please check the notebook `03 Kmeans`. 
+
+![clusters](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/cluster.png)
+
+Comparing the clusters distributions of the general population and customers. We can see that people from cluster 0 are very likely to be customers. These people have lower share of Ford & Opel/Vauxhall within the PLZ8, but higher share of BMW & Mercedes Benz within the PLZ8 and higher share of car owners elder than 61 within the PLZ8; The most common engine size in the microcell is more likely to be bigger engine; The most common car segment in the microcell is more likely to be upper class cars; We can infer that people in cluster 0 are older, rich, upper class people who prefer BMW & Mercedes Benz and cars with bigger engines.
+
 
 
 
