@@ -1,6 +1,6 @@
 # Customer Segmentation and Campaign Response Prediction
 *Tianyi Wang*
-*2020 Apr*
+<br>*2020 Apr*
 
 This is a Capstone project for Udacity Data Science Nanodegree parterning with [Arvato Financial Services](https://finance.arvato.com/en-us/]). In this project, demographics data for customers of a mail-order sales company in Germany is provided along with the demographics information for the general population. We'll use unsupervised learning techniques to perform customer segmentation, identifying the parts of the population that best describe the core customer base of the company. Then, we'll build a machine model to predict which individuals are most likely to convert into becoming customers for the company. 
 
@@ -36,12 +36,26 @@ We extracted the top 2 features (that can be found explanations) for the top 20 
 
 In the `KMeans` clustering, we chose to do 6 clusters. The average values of the important variables for each cluster:
 
+![pca](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/cluster_explanation.png)
 
 It's a very long chart I only screenshot a little bit here... For more details please check the notebook `03 Kmeans`. 
 
 ![clusters](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/cluster.png)
 
-Comparing the clusters distributions of the general population and customers. We can see that people from cluster 0 are very likely to be customers. These people have lower share of Ford & Opel/Vauxhall within the PLZ8, but higher share of BMW & Mercedes Benz within the PLZ8 and higher share of car owners elder than 61 within the PLZ8; The most common engine size in the microcell is more likely to be bigger engine; The most common car segment in the microcell is more likely to be upper class cars; We can infer that people in cluster 0 are older, rich, upper class people who prefer BMW & Mercedes Benz and cars with bigger engines.
+Comparing the clusters distributions of the general population and customers. We can see that **people from cluster  0 are very likely to be customers.** These people have lower share of Ford & Opel/Vauxhall within the PLZ8, but higher share of BMW & Mercedes Benz within the PLZ8 and higher share of car owners elder than 61 within the PLZ8; The most common engine size in the microcell is more likely to be bigger engine; The most common car segment in the microcell is more likely to be upper class cars; **We can infer that people in cluster 0 are older, rich, upper class people who prefer BMW & Mercedes Benz and cars with bigger engines.**
+
+
+**Cluster 1 is much less likely to be customers.** These people are more likely to have high financial typology -- be prepared, high moving patterns, high share of middle class cars (Ford Mondeo etc.) in the PLZ8, and low share of a lot of other important variables we are looking at. **These people are more like younger middle class while their degrees of "financial typology be prepared" are high. They also have high moving patterns.**
+
+**Cluster 2 and 3 are also more likely to be customers**, while these clusters might be very different from each other. People in clusters 2 have low degree of "financial typology be prepared" and low moving patterns; People in cluster 3 have high affinity indicating in what way the person is dreamily and have high degree of "financial typology be prepared".
+
+## Predicting who will be more likely to respond to a mail campaign!
+
+In this part we have a training set and a testing set, each with 42,962 rows and the same features as we have in the previous datasets. We want to use the training set to learn what kind of people are more likely to respond to our campaign.
+
+In the training data, only 1.2% of the people responded to the ad. So we need to deal with the data imbalance isssue.
+
+
 
 
 
