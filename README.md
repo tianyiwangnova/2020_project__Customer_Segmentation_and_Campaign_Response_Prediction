@@ -53,9 +53,15 @@ Comparing the clusters distributions of the general population and customers. We
 
 In this part we have a training set and a testing set, each with 42,962 rows and the same features as we have in the previous datasets. We want to use the training set to learn what kind of people are more likely to respond to our campaign.
 
-In the training data, only 1.2% (425 people) of the people responded to the ad. So we need to deal with the data imbalance isssue. We wrote a customized function to do the job of train_test_split. We will sample 20% from the customers who responded to the campaign and 20% from the customers who didn't respond seperately to the final test set to make sure that in training set, 1.2% of the people responded and in testing set, that ratio is also 1.2%. When we train the model, we will upsample the people who responded and downsample the people who didn't respond.
+In the training data, only 1.2% (425 people) of the people responded to the ad. So we need to deal with the data imbalance issue. We wrote a customized function to do the job of train_test_split. We will sample 20% from the customers who responded to the campaign and 20% from the customers who didn't respond seperately to the final test set to make sure that in training set, 1.2% of the people responded and in testing set, that ratio is also 1.2%. When we train the model, we will upsample the people who responded and downsample the people who didn't respond.
 
 ![train_test_split](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/train%20test%20split.png)
+
+We tried several models, including Random Forest, Gradient Boosting and the Xgboost algorithm. We found out that Xgboost worked the best. Our modeling process is mostly like this:
+
+![workflow](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/aproject.png)
+
+
 
 
 
