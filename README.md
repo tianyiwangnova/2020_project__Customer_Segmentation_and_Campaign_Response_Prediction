@@ -61,6 +61,32 @@ We tried several models, including Random Forest, Gradient Boosting and the Xgbo
 
 ![workflow](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/aproject.png)
 
+The green squares above are the tunable parameters (of course there are way more other parameters for XgbClassifier, we found these parameters the most influential). We split up the parameters into 2 groups: resampling parameters (squares in light green) and classifier parameters (squares in dark greens). We first tune the resampling parameters, and then fix the resampling parameters and tune the classfier parameters.
+
+We used an algorithm which is close to 5 folds cross validation algorithm. Rather than spliting the data to 5 folds ahead and use one fold as validation set at one time, we randomly split data each time we run the model. I kind of trust this method because in our modeling pipine, only very small portion (no more than 10%) of the whole data will be entered to the training process. Even if we don't do very strict cross validation, there's very very little chance that the five sampled training sets are largely overlapped.
+
+The criteria is that we want to maximize the AUC calculated with the real response labels and the predicted probability to have a positive label. 
+```
+auc = roc_auc_score(y_test, model.predict_proba(X_test)[:,1])
+```
+For reference of the definition and meaning of the AUC metric, please check this [link](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
+
+Our best result came under this set:
+
+* sampling method: random sampling
+* minority group size: 1200 (on average, a positive case in the training data will be learned 3 times)
+* majority group size: 1200
+* learning rate: 0.01
+* max_depth: 6
+* gamma: 0.5
+* subsample: 1 (don't drop any column!)
+
+Remember that although positive cases will be repeatedly learned, there will only be about 3.6% negative cases entering the training process. Each time we train the model and predict on the validation set, the result could be very different. So when we actually predict on testing set, we will train the model for multiple times, predict on testing set with the models and then use the average predicted value as the final result.
+
+Finally there's an [online Kaggle competition](https://www.kaggle.com/c/udacity-arvato-identify-customers/overview) for submitting the result. 
+
+By far, the best AUC score I had is 0.80352 (the highest score on the leaderboard is 0.81063)
+
 
 
 
