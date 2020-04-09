@@ -89,6 +89,8 @@ By far, the best AUC score I had is 0.80352 (the highest score on the leaderboar
 
 ![rank](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/kaggle.png)
 
+A final topic is the important features in this model. The most important attributes are the customer's transaction activities in the last 12 months (in the SOZIALES category, in German it means "social"), number of academic title holder in building, share of cars with Diesel-engine in the microcell, share of newbuilt cars (referred to the county average) - PLZ8 and consumption type. People who responded to the ad have lower transaction activities in the "social" category, higher numbers of academic title holders in building, higher share of cars with Diesel-engine in the microcell and higher share of newbuilt cars (referred to the county average) - PLZ8.
+
 
 
 
