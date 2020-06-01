@@ -2,7 +2,14 @@
 *Tianyi Wang*
 <br>*2020 Apr*
 
-This is a Capstone project for Udacity Data Science Nanodegree parterning with [Arvato Financial Services](https://finance.arvato.com/en-us/]). In this project, demographics data for customers of a mail-order sales company in Germany is provided along with the demographics information for the general population. We'll use unsupervised learning techniques to perform customer segmentation to identify the parts of the population that best describe the core customer base of the company. Then, we'll build a machine model to predict which individuals are the most likely to respond to the company's mail campaigns. 
+This is a Capstone project for Udacity Data Science Nanodegree parterning with [Arvato Financial Services](https://finance.arvato.com/en-us/]). In this project, demographics data for customers of a mail-order sales company in Germany is provided along with the demographics information for the general population. We'll use unsupervised learning techniques to perform customer segmentation to identify the parts of the population that best describe the core customer base of the company. Then, we'll build a machine model to predict which individuals are the most likely to respond to the company's mail campaigns.
+
+## Packages used
+
+* pandas
+* sklearn
+* matplotlib
+* seaborn
 
 ## Data
 
@@ -11,7 +18,7 @@ The raw data is proprietary so I won't share it in this repo. We mainly have 2 d
 * **Genereal German population data:** 891,221 rows, 366 columns
 * **Customers data:** 191,652 rows, 369 columns
 
-The 366 features cover various aspects that describe a customer, including age, customers journey typology, financial typology, bank transaction activities, customer personalities, shares of different car brands in the customer's neighborhood. Interestingly, most features are built around the cars the customer owns or the cars the customer's neighbors own. 
+The 366 features cover various aspects that describe a customer, including age, customers journey typology, financial typology, bank transaction activities, customer personalities, shares of different car brands in the customer's neighborhood. Interestingly, most features are built around the cars the customer owns or the cars the customer's neighbors own.
 
 An example of the features:
 ![features](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/features.png)
@@ -38,7 +45,7 @@ In the `KMeans` clustering, we chose to do 6 clusters. The average values of the
 
 ![pca](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/cluster_explanation.png)
 
-It's a very long chart I only screenshot a little bit here... For more details please check the notebook `03 Kmeans`. 
+It's a very long chart I only screenshot a little bit here... For more details please check the notebook `03 Kmeans`.
 
 ![clusters](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/cluster.png)
 
@@ -65,7 +72,7 @@ The green squares above are the tunable parameters (of course there are way more
 
 We used an algorithm which is close to 5 folds cross validation algorithm. Rather than spliting the data to 5 folds ahead and use one fold as validation set at one time, we randomly split data each time we run the model. I kind of trust this method because in our modeling pipine, only very small portion (no more than 10%) of the whole data will be entered to the training process. Even if we don't do very strict cross validation, there's very very little chance that the five sampled training sets are largely overlapped.
 
-The objective for parameter tuning is that we want to maximize the AUC calculated with the real response labels and the predicted probability to have a positive label. 
+The objective for parameter tuning is that we want to maximize the AUC calculated with the real response labels and the predicted probability to have a positive label.
 ```
 auc = roc_auc_score(y_test, model.predict_proba(X_test)[:,1])
 ```
@@ -83,29 +90,10 @@ Our best result came under this set:
 
 Remember that although positive cases will be repeatedly learned, there will only be about 3.6% negative cases entering the training process. Each time we train the model and predict on the validation set, the result could be different. So when we actually predict on testing set, we will train the model for multiple times, predict on testing set with the models and then use the average predicted value as the final result.
 
-Finally there's an [online Kaggle competition](https://www.kaggle.com/c/udacity-arvato-identify-customers/overview) for submitting the result. 
+Finally there's an [online Kaggle competition](https://www.kaggle.com/c/udacity-arvato-identify-customers/overview) for submitting the result.
 
 By far, the best AUC score I had is 0.80352 (the highest score on the leaderboard is 0.81063)
 
 ![rank](https://raw.githubusercontent.com/tianyiwangnova/2020_project__Customer_Segmentation_and_Campaign_Response_Prediction/master/screenshots/kaggle.png)
 
 A final topic is the important features in this model. The most important attributes are the customer's transaction activities in the last 12 months (in the SOZIALES category, in German it means "social"), number of academic title holder in building, share of cars with Diesel-engine in the microcell, share of newbuilt cars (referred to the county average) - PLZ8 and consumption type. **People who responded to the ad have lower transaction activities in the "social" category, higher numbers of academic title holders in building, higher share of cars with Diesel-engine in the microcell and higher share of newbuilt cars (referred to the county average) - PLZ8.**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
